@@ -1,0 +1,7 @@
+*.exe
+*.log
+*.mp3
+.git-credentials
+priv
+main
+
