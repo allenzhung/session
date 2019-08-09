@@ -2,22 +2,28 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"time"
 
-	"github.com/gin-contrib/sessions"
+	sqlitecookie "github.com/allenzhung/session/sqlite" //package namme sqlitecookie
+	"github.com/allenzhung/session/sessions"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	tt()
+	log.SetFlags(log.Ldate | log.Ltime | log.Llongfile)
 
 	// gin.SetMode(gin.ReleaseMode)
 
 	r := gin.Default()
-	store := NewStore([]byte("secret"))
+	store := sqlitecookie.NewStore([]byte("secret"))
 	r.Use(sessions.Sessions("mysession", store))
 
 	r.GET("/incr", func(c *gin.Context) {
+		val, _ := c.Cookie("mysession")
+		log.Println("Cookie:%s", val)
+
 		session := sessions.Default(c)
 		var count int
 		v := session.Get("count")
