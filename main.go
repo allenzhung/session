@@ -5,8 +5,8 @@ import (
 	"log"
 	"time"
 
-	sqlitecookie "github.com/allenzhung/session/sqlite" //package namme sqlitecookie
-	"github.com/allenzhung/session/sessions"
+	sqlitecookie "session/sqlite" //package namme sqlitecookie
+	"session/sessions"
 	"github.com/gin-gonic/gin"
 )
 

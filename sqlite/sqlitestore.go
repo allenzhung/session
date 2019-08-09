@@ -3,9 +3,10 @@ package sqlitecookie
 import (
 	"fmt"
 
-	"github.com/allenzhung/session/sessions"
+	"session/sessions"
 	gsessions "github.com/gorilla/sessions"
-	"github.com/michaeljs1990/sqlitestore"
+	// "github.com/michaeljs1990/sqlitestore"
+	"session/sqlitestore"
 )
 
 type Store interface {
