@@ -42,7 +42,7 @@ type sessionRow struct {
 }
 
 type DB interface {
-	Exec(query string, args ...interface{}) (sql.Result, error) 
+	Exec(query string, args ...interface{}) (sql.Result, error)
 	Prepare(query string) (*sql.Stmt, error)
 	Close() error
 }
@@ -137,6 +137,7 @@ func (m *SqliteStore) New(r *http.Request, name string) (*sessions.Session, erro
 	session.IsNew = true
 	var err error
 	if cook, errCookie := r.Cookie(name); errCookie == nil {
+		log.Println("cooke from request:", name, "=", cook)
 		err = securecookie.DecodeMulti(name, cook.Value, &session.ID, m.Codecs...)
 		if err == nil {
 			err = m.load(session)
@@ -264,6 +265,7 @@ func (m *SqliteStore) load(session *sessions.Session) error {
 	row := m.stmtSelect.QueryRow(session.ID)
 	sess := sessionRow{}
 	scanErr := row.Scan(&sess.id, &sess.data, &sess.createdOn, &sess.modifiedOn, &sess.expiresOn)
+	log.Println(sess.id, ",", sess.data)
 	if scanErr != nil {
 		return scanErr
 	}
@@ -275,9 +277,16 @@ func (m *SqliteStore) load(session *sessions.Session) error {
 	if err != nil {
 		return err
 	}
+
+	log.Println("session.Values=1", session.Values)
+	Print_map(session.Values)
+
 	session.Values["created_on"] = sess.createdOn
 	session.Values["modified_on"] = sess.modifiedOn
 	session.Values["expires_on"] = sess.expiresOn
+
+	log.Println("session.Values=2", session.Values)
+	Print_map(session.Values)
 	return nil
 
 }

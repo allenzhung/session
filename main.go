@@ -5,13 +5,19 @@ import (
 	"log"
 	"time"
 
-	sqlitecookie "session/sqlite" //package namme sqlitecookie
 	"session/sessions"
+	sqlitecookie "session/sqlite" //package namme sqlitecookie
+
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
+	mm()
+
+	return
+
 	tt()
+
 	log.SetFlags(log.Ldate | log.Ltime | log.Llongfile)
 
 	// gin.SetMode(gin.ReleaseMode)

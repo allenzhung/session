@@ -1,8 +1,9 @@
 *.exe
+__debug_bin
+main
 *.log
 *.mp3
 .git-credentials
 priv
-main
 *.db
 
