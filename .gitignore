@@ -1,6 +1,7 @@
 *.exe
 __debug_bin
 main
+session
 *.log
 *.mp3
 .git-credentials
