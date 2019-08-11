@@ -15,9 +15,10 @@ import (
 	"net/http"
 	"strings"
 	"time"
+	"session/mytool"
 
 	"github.com/gorilla/securecookie"
-	"github.com/gorilla/sessions"
+	gsessions "github.com/gorilla/sessions"
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -29,7 +30,7 @@ type SqliteStore struct {
 	stmtSelect *sql.Stmt
 
 	Codecs  []securecookie.Codec
-	Options *sessions.Options
+	Options *gsessions.Options
 	table   string
 }
 
@@ -108,7 +109,7 @@ func NewSqliteStoreFromConnection(db DB, tableName string, path string, maxAge i
 		stmtUpdate: stmtUpdate,
 		stmtSelect: stmtSelect,
 		Codecs:     securecookie.CodecsFromPairs(keyPairs...),
-		Options: &sessions.Options{
+		Options: &gsessions.Options{
 			Path:   path,
 			MaxAge: maxAge,
 		},
@@ -124,13 +125,13 @@ func (m *SqliteStore) Close() {
 	m.db.Close()
 }
 
-func (m *SqliteStore) Get(r *http.Request, name string) (*sessions.Session, error) {
-	return sessions.GetRegistry(r).Get(m, name)
+func (m *SqliteStore) Get(r *http.Request, name string) (*gsessions.Session, error) {
+	return gsessions.GetRegistry(r).Get(m, name)
 }
 
-func (m *SqliteStore) New(r *http.Request, name string) (*sessions.Session, error) {
-	session := sessions.NewSession(m, name)
-	session.Options = &sessions.Options{
+func (m *SqliteStore) New(r *http.Request, name string) (*gsessions.Session, error) {
+	session := gsessions.NewSession(m, name)
+	session.Options = &gsessions.Options{
 		Path:   m.Options.Path,
 		MaxAge: m.Options.MaxAge,
 	}
@@ -151,7 +152,7 @@ func (m *SqliteStore) New(r *http.Request, name string) (*sessions.Session, erro
 	return session, err
 }
 
-func (m *SqliteStore) Save(r *http.Request, w http.ResponseWriter, session *sessions.Session) error {
+func (m *SqliteStore) Save(r *http.Request, w http.ResponseWriter, session *gsessions.Session) error {
 	var err error
 	if session.ID == "" {
 		if err = m.insert(session); err != nil {
@@ -164,11 +165,11 @@ func (m *SqliteStore) Save(r *http.Request, w http.ResponseWriter, session *sess
 	if err != nil {
 		return err
 	}
-	http.SetCookie(w, sessions.NewCookie(session.Name(), encoded, session.Options))
+	http.SetCookie(w, gsessions.NewCookie(session.Name(), encoded, session.Options))
 	return nil
 }
 
-func (m *SqliteStore) insert(session *sessions.Session) error {
+func (m *SqliteStore) insert(session *gsessions.Session) error {
 	var createdOn time.Time
 	var modifiedOn time.Time
 	var expiresOn time.Time
@@ -205,12 +206,12 @@ func (m *SqliteStore) insert(session *sessions.Session) error {
 	return nil
 }
 
-func (m *SqliteStore) Delete(r *http.Request, w http.ResponseWriter, session *sessions.Session) error {
+func (m *SqliteStore) Delete(r *http.Request, w http.ResponseWriter, session *gsessions.Session) error {
 
 	// Set cookie to expire.
 	options := *session.Options
 	options.MaxAge = -1
-	http.SetCookie(w, sessions.NewCookie(session.Name(), "", &options))
+	http.SetCookie(w, gsessions.NewCookie(session.Name(), "", &options))
 	// Clear session values.
 	for k := range session.Values {
 		delete(session.Values, k)
@@ -223,7 +224,7 @@ func (m *SqliteStore) Delete(r *http.Request, w http.ResponseWriter, session *se
 	return nil
 }
 
-func (m *SqliteStore) save(session *sessions.Session) error {
+func (m *SqliteStore) save(session *gsessions.Session) error {
 	if session.IsNew == true {
 		return m.insert(session)
 	}
@@ -261,7 +262,7 @@ func (m *SqliteStore) save(session *sessions.Session) error {
 	return nil
 }
 
-func (m *SqliteStore) load(session *sessions.Session) error {
+func (m *SqliteStore) load(session *gsessions.Session) error {
 	row := m.stmtSelect.QueryRow(session.ID)
 	sess := sessionRow{}
 	scanErr := row.Scan(&sess.id, &sess.data, &sess.createdOn, &sess.modifiedOn, &sess.expiresOn)
@@ -279,14 +280,14 @@ func (m *SqliteStore) load(session *sessions.Session) error {
 	}
 
 	log.Println("session.Values=1", session.Values)
-	Print_map(session.Values)
+	mytool.Print_map(session.Values)
 
 	session.Values["created_on"] = sess.createdOn
 	session.Values["modified_on"] = sess.modifiedOn
 	session.Values["expires_on"] = sess.expiresOn
 
 	log.Println("session.Values=2", session.Values)
-	Print_map(session.Values)
+	mytool.Print_map(session.Values)
 	return nil
 
 }

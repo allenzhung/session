@@ -12,13 +12,15 @@ import (
 )
 
 func main() {
+	log.SetFlags(log.Ldate | log.Ltime | log.Llongfile)
+	
 	mm()
 
 	return
 
 	tt()
 
-	log.SetFlags(log.Ldate | log.Ltime | log.Llongfile)
+	
 
 	// gin.SetMode(gin.ReleaseMode)
 

@@ -6,7 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/context"
-	"github.com/gorilla/sessions"
+	gsessions "github.com/gorilla/sessions"
 )
 
 const (
@@ -15,7 +15,7 @@ const (
 )
 
 type Store interface {
-	sessions.Store
+	gsessions.Store
 	Options(Options)
 }
 
@@ -70,7 +70,7 @@ type session struct {
 	name    string
 	request *http.Request
 	store   Store
-	session *sessions.Session
+	session *gsessions.Session
 	written bool
 	writer  http.ResponseWriter
 }
@@ -106,7 +106,7 @@ func (s *session) Flashes(vars ...string) []interface{} {
 }
 
 func (s *session) Options(options Options) {
-	s.Session().Options = &sessions.Options{
+	s.Session().Options = &gsessions.Options{
 		Path:     options.Path,
 		Domain:   options.Domain,
 		MaxAge:   options.MaxAge,
@@ -126,7 +126,7 @@ func (s *session) Save() error {
 	return nil
 }
 
-func (s *session) Session() *sessions.Session {
+func (s *session) Session() *gsessions.Session {
 	if s.session == nil {
 		var err error
 		s.session, err = s.store.Get(s.request, s.name)

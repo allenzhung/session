@@ -1,0 +1,34 @@
+----------
+count is int 0
+buf= [14 255 129 4 1 2 255 130 0 1 16 1 16 0 0 28 255 130 0 1 6 115 116 114 105 110 103 12 7 0 5 99 111 117 110 116 3 105 110 116 4 2 0 0]
+2019/08/11 17:15:14 /Users/zm/mygo/pkg/mod/github.com/gorilla/securecookie@v1.1.1/securecookie.go:282: value= map[count:0]
+count is int 0
+2019/08/11 17:15:14 /Users/zm/mygo/pkg/mod/github.com/gorilla/securecookie@v1.1.1/securecookie.go:284: encode= Dv-BBAEC_4IAARABEAAAHP-CAAEGc3RyaW5nDAcABWNvdW50A2ludAQCAAA=
+2019/08/11 17:15:14 /Users/zm/mygo/pkg/mod/github.com/gorilla/securecookie@v1.1.1/securecookie.go:287: name= mysession
+2019/08/11 17:15:14 /Users/zm/mygo/pkg/mod/github.com/gorilla/securecookie@v1.1.1/securecookie.go:288: timestamp= 1565514914
+2019/08/11 17:15:14 /Users/zm/mygo/pkg/mod/github.com/gorilla/securecookie@v1.1.1/securecookie.go:290: name|date|value= [109 121 115 101 115 115 105 111 110 124 49 53 54 53 53 49 52 57 49 52 124 68 118 45 66 66 65 69 67 95 52 73 65 65 82 65 66 69 65 65 65 72 80 45 67 65 65 69 71 99 51 82 121 97 87 53 110 68 65 99 65 66 87 78 118 100 87 53 48 65 50 108 117 100 65 81 67 65 65 65 61 124]
+2019/08/11 17:15:14 /Users/zm/mygo/pkg/mod/github.com/gorilla/securecookie@v1.1.1/securecookie.go:291: string is :: mysession|1565514914|Dv-BBAEC_4IAARABEAAAHP-CAAEGc3RyaW5nDAcABWNvdW50A2ludAQCAAA=|
+2019/08/11 17:15:14 /Users/zm/mygo/pkg/mod/github.com/gorilla/securecookie@v1.1.1/securecookie.go:303: final is ::  MTU2NTUxNDkxNHxEdi1CQkFFQ180SUFBUkFCRUFBQUhQLUNBQUVHYzNSeWFXNW5EQWNBQldOdmRXNTBBMmx1ZEFRQ0FBQT18smGYyl9J6NRjbiHoAw5li3acV2KIPY5X9u0Xuqi6CRU=
+----------
+is string 1
+buf= [4 12 0 1 49]
+2019/08/11 17:15:14 /Users/zm/mygo/pkg/mod/github.com/gorilla/securecookie@v1.1.1/securecookie.go:282: value= 1
+is string 1
+2019/08/11 17:15:14 /Users/zm/mygo/pkg/mod/github.com/gorilla/securecookie@v1.1.1/securecookie.go:284: encode= BAwAATE=
+2019/08/11 17:15:14 /Users/zm/mygo/pkg/mod/github.com/gorilla/securecookie@v1.1.1/securecookie.go:287: name= mysession
+2019/08/11 17:15:14 /Users/zm/mygo/pkg/mod/github.com/gorilla/securecookie@v1.1.1/securecookie.go:288: timestamp= 1565514914
+2019/08/11 17:15:14 /Users/zm/mygo/pkg/mod/github.com/gorilla/securecookie@v1.1.1/securecookie.go:290: name|date|value= [109 121 115 101 115 115 105 111 110 124 49 53 54 53 53 49 52 57 49 52 124 66 65 119 65 65 84 69 61 124]
+2019/08/11 17:15:14 /Users/zm/mygo/pkg/mod/github.com/gorilla/securecookie@v1.1.1/securecookie.go:291: string is :: mysession|1565514914|BAwAATE=|
+2019/08/11 17:15:14 /Users/zm/mygo/pkg/mod/github.com/gorilla/securecookie@v1.1.1/securecookie.go:303: final is ::  MTU2NTUxNDkxNHxCQXdBQVRFPXydz1mNxmVfgyU0f_Kbm1LbPanYqQQLsgaiI09ziP3jpg==
+
+
+
+------------ map sz desz ---------------------
+2019/08/11 17:36:33 /Users/zm/gosrc/session/mm.go:58: map[count:0] [14 255 129 4 1 2 255 130 0 1 16 1 16 0 0 28 255 130 0 1 6 115 116 114 105 110 103 12 7 0 5 99 111 117 110 116 3 105 110 116 4 2 0 0]
+2019/08/11 17:36:33 /Users/zm/gosrc/session/mm.go:64: map[count:0]
+------------ 5步 ---------------------
+2019/08/11 17:36:33 /Users/zm/gosrc/session/mm.go:75: 1 [4 12 0 1 49]
+2019/08/11 17:36:33 /Users/zm/gosrc/session/mm.go:77: encode= BAwAATE=
+2019/08/11 17:36:33 /Users/zm/gosrc/session/mm.go:83: name|date|value= [109 121 115 101 115 115 105 111 110 124 49 53 54 53 53 49 52 57 49 52 124 66 65 119 65 65 84 69 61 124]
+2019/08/11 17:36:33 /Users/zm/gosrc/session/mm.go:84: string is :: mysession|1565514914|BAwAATE=|
+2019/08/11 17:36:33 /Users/zm/gosrc/session/mm.go:101: final is ::  MTU2NTUxNDkxNHxCQXdBQVRFPXydz1mNxmVfgyU0f_Kbm1LbPanYqQQLsgaiI09ziP3jpg==
